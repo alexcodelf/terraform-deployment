@@ -1,6 +1,21 @@
 name: Build Terraform Deployment Image
 
 on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to build"
+        required: true
+        default: "main"
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
   push:
     branches:
       - main
