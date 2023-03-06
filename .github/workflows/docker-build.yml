@@ -33,7 +33,7 @@ jobs:
         id: terraform
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.CI_DOCKER_USERNAME }}/{{ env.IMAGE_NAME }}
+          images: ${{ env.CI_DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -48,7 +48,7 @@ jobs:
           context: .
           tags: ${{ steps.terraform.outputs.tags }}
           platforms: ${{ env.BUILD_PLATFORMS }}
-          cache-from: type=registry,ref=${{ env.CI_DOCKER_USERNAME }}/build-cache:{{ env.IMAGE_NAME }}
-          cache-to: type=registry,mode=max,compression=zstd,compression-level=20,ref=${{ env.CI_DOCKER_USERNAME }}/build-cache:{{ env.IMAGE_NAME }}
+          cache-from: type=registry,ref=${{ env.CI_DOCKER_USERNAME }}/build-cache:${{ env.IMAGE_NAME }}
+          cache-to: type=registry,mode=max,compression=zstd,compression-level=20,ref=${{ env.CI_DOCKER_USERNAME }}/build-cache:${{ env.IMAGE_NAME }}
           build-args: |
             --build-arg TERRAFORM_VERSION=${{ env.TERRAFORM_VERSION }}
